@@ -14,6 +14,8 @@
 
 2024 金融创新大赛参赛作品
 
+<img src="docs/images/home-dashboard.png" alt="融融AI 主页：股市摘要与实时行情" width="100%">
+
 </div>
 
 ## 📖 项目简介
@@ -42,33 +44,35 @@
 
 <table>
   <tr>
-    <td width="50%"><img src="docs/images/home-dashboard.png" alt="主页：股市摘要与行情图表"></td>
     <td width="50%"><img src="docs/images/chat.png" alt="融融AI 智能问答"></td>
-  </tr>
-  <tr>
-    <td align="center"><sub>主页：AI 股市摘要 + TradingView 实时行情</sub></td>
-    <td align="center"><sub>融融AI 智能问答（流式输出）</sub></td>
-  </tr>
-  <tr>
     <td width="50%"><img src="docs/images/news.png" alt="新闻资讯热榜"></td>
-    <td width="50%"><img src="docs/images/video.png" alt="金融视频与 AI 总结"></td>
   </tr>
   <tr>
+    <td align="center"><sub>融融AI 智能问答（SSE 流式输出）</sub></td>
     <td align="center"><sub>资讯热榜：41 个数据源、卡片式浏览</sub></td>
-    <td align="center"><sub>金融视频：播放页侧边 AI 总结</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><img src="docs/images/video.png" alt="金融视频与 AI 总结" width="85%"></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><sub>金融视频：播放页侧边 AI 总结</sub></td>
   </tr>
 </table>
 
 <table>
   <tr>
-    <td width="33%"><img src="docs/images/admin-agents.png" alt="智能体管理"></td>
-    <td width="33%"><img src="docs/images/admin-video.png" alt="视频管理"></td>
-    <td width="33%"><img src="docs/images/admin-db-assistant.png" alt="数据库助手"></td>
+    <td width="50%"><img src="docs/images/admin-agents.png" alt="智能体管理"></td>
+    <td width="50%"><img src="docs/images/admin-video.png" alt="视频管理"></td>
   </tr>
   <tr>
-    <td align="center"><sub>后台：智能体管理</sub></td>
-    <td align="center"><sub>后台：视频管理</sub></td>
-    <td align="center"><sub>后台：数据库助手（自然语言查表结构）</sub></td>
+    <td align="center"><sub>后台：智能体管理（CRUD + 联网开关）</sub></td>
+    <td align="center"><sub>后台：视频管理（B 站链接与封面）</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><img src="docs/images/admin-db-assistant.png" alt="数据库助手" width="100%"></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><sub>后台：数据库助手 —— 自然语言直接查询表结构并作答</sub></td>
   </tr>
 </table>
 
