@@ -1,8 +1,8 @@
 <div align="center">
 
-# 融融AI · 金融多元交互平台
+# “融融AI”——基于大语言模型的金融多元交互平台
 
-**RAG 金融知识问答 · 股市摘要 · 资讯聚合 · 视频理解 · NL2SQL**
+**RAG 金融知识问答 · 股市摘要 · 资讯聚合 · 视频理解**
 
 ![Nuxt 3](https://img.shields.io/badge/Nuxt-3-00DC82?logo=nuxt.js&logoColor=white)
 ![Vue 2](https://img.shields.io/badge/Vue-2-4FC08D?logo=vue.js&logoColor=white)
@@ -11,8 +11,6 @@
 ![LangChain](https://img.shields.io/badge/LangChain-0.2-1C3C3C)
 ![Qwen](https://img.shields.io/badge/LLM-Qwen--plus-615CED)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
-
-2024 金融创新大赛参赛作品
 
 <img src="docs/images/home-dashboard.png" alt="融融AI 主页：股市摘要与实时行情" width="100%">
 
@@ -83,44 +81,6 @@
 系统按四层划分：**依赖服务层**（大模型服务、新闻接口、金融知识库）→ **业务逻辑层**（智能应用、内容推送、后台管理）→ **底层存储层**（向量数据库、关系数据库）。
 
 ## ⚙️ 技术架构
-
-```mermaid
-flowchart LR
-  subgraph Client["客户端"]
-    W["融融AI-web端<br/>Nuxt 3 · :3000"]
-    A["后台管理前端<br/>Vue 2 · :8088"]
-  end
-
-  subgraph Biz["业务层"]
-    J["后台管理系统<br/>Spring Boot · :9090"]
-    N["实时新闻后端<br/>Hono · :6688"]
-  end
-
-  subgraph AI["AI 服务层"]
-    L["大模型服务<br/>Flask · :5000"]
-  end
-
-  subgraph Store["存储与云服务"]
-    DB[("MySQL · llm")]
-    V[("Qdrant 向量库<br/>内存模式")]
-    COS[("腾讯云 COS")]
-  end
-
-  DS["通义千问 DashScope<br/>qwen-plus / qwen-vl-plus / text-embedding-v2"]
-  NLS["阿里云智能语音<br/>ASR / TTS"]
-
-  W -->|热榜 JSON / RSS| N
-  W -->|智能体 · 视频| J
-  W -->|SSE 流式问答| L
-  A -->|REST| J
-  A -->|NL2SQL| L
-  J --> DB
-  L --> DB
-  L --> V
-  L --> DS
-  L --> NLS
-  L --> COS
-```
 
 | 层次 | 技术选型 |
 | --- | --- |
