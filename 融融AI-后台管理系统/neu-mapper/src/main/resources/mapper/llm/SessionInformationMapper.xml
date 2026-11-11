@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neu.llm.mapper.SessionInformationMapper">
+    
+    <resultMap type="SessionInformation" id="SessionInformationResult">
+        <result property="sessionId"    column="session_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="createdAt"    column="created_at"    />
+        <result property="sessionStatus"    column="session_status"    />
+    </resultMap>
+
+    <sql id="selectSessionInformationVo">
+        select session_id, user_id, created_at, session_status from session_information
+    </sql>
+
+    <select id="selectSessionInformationList" parameterType="SessionInformation" resultMap="SessionInformationResult">
+        <include refid="selectSessionInformationVo"/>
+        <where>  
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="params.beginCreatedAt != null and params.beginCreatedAt != '' and params.endCreatedAt != null and params.endCreatedAt != ''"> and created_at between #{params.beginCreatedAt} and #{params.endCreatedAt}</if>
+            <if test="sessionStatus != null  and sessionStatus != ''"> and session_status = #{sessionStatus}</if>
+        </where>
+    </select>
+    
+    <select id="selectSessionInformationById" parameterType="Long" resultMap="SessionInformationResult">
+        <include refid="selectSessionInformationVo"/>
+        where session_id = #{sessionId}
+    </select>
+        
+    <insert id="insertSessionInformation" parameterType="SessionInformation" useGeneratedKeys="true" keyProperty="sessionId">
+        insert into session_information
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="sessionStatus != null">session_status,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="sessionStatus != null">#{sessionStatus},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSessionInformation" parameterType="SessionInformation">
+        update session_information
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="sessionStatus != null">session_status = #{sessionStatus},</if>
+        </trim>
+        where session_id = #{sessionId}
+    </update>
+
+    <delete id="deleteSessionInformationById" parameterType="Long">
+        delete from session_information where session_id = #{sessionId}
+    </delete>
+
+    <delete id="deleteSessionInformationByIds" parameterType="String">
+        delete from session_information where session_id in 
+        <foreach item="sessionId" collection="array" open="(" separator="," close=")">
+            #{sessionId}
+        </foreach>
+    </delete>
+</mapper>

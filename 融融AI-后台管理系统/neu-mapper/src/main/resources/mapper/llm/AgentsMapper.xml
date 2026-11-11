@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neu.llm.mapper.AgentsMapper">
+    
+    <resultMap type="Agents" id="AgentsResult">
+        <result property="agentId"    column="agent_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="icon"    column="icon"    />
+        <result property="name"    column="name"    />
+        <result property="introduction"    column="introduction"    />
+        <result property="configInfo"    column="config_info"    />
+        <result property="creationTime"    column="creation_time"    />
+        <result property="network"    column="network"    />
+    </resultMap>
+
+    <sql id="selectAgentsVo">
+        select agent_id, user_id, icon, name, introduction, config_info, creation_time, network from agents
+    </sql>
+
+    <select id="selectAgentsList" parameterType="Agents" resultMap="AgentsResult">
+        <include refid="selectAgentsVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="params.beginCreationTime != null and params.beginCreationTime != '' and params.endCreationTime != null and params.endCreationTime != ''"> and creation_time between #{params.beginCreationTime} and #{params.endCreationTime}</if>
+            <if test="network != null "> and network = #{network}</if>
+        </where>
+    </select>
+    
+    <select id="selectAgentsById" parameterType="Long" resultMap="AgentsResult">
+        <include refid="selectAgentsVo"/>
+        where agent_id = #{agentId}
+    </select>
+        
+    <insert id="insertAgents" parameterType="Agents" useGeneratedKeys="true" keyProperty="agentId">
+        insert into agents
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="icon != null">icon,</if>
+            <if test="name != null">name,</if>
+            <if test="introduction != null">introduction,</if>
+            <if test="configInfo != null">config_info,</if>
+            <if test="creationTime != null">creation_time,</if>
+            <if test="network != null">network,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="icon != null">#{icon},</if>
+            <if test="name != null">#{name},</if>
+            <if test="introduction != null">#{introduction},</if>
+            <if test="configInfo != null">#{configInfo},</if>
+            <if test="creationTime != null">#{creationTime},</if>
+            <if test="network != null">#{network},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAgents" parameterType="Agents">
+        update agents
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="icon != null">icon = #{icon},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="introduction != null">introduction = #{introduction},</if>
+            <if test="configInfo != null">config_info = #{configInfo},</if>
+            <if test="creationTime != null">creation_time = #{creationTime},</if>
+            <if test="network != null">network = #{network},</if>
+        </trim>
+        where agent_id = #{agentId}
+    </update>
+
+    <delete id="deleteAgentsById" parameterType="Long">
+        delete from agents where agent_id = #{agentId}
+    </delete>
+
+    <delete id="deleteAgentsByIds" parameterType="String">
+        delete from agents where agent_id in 
+        <foreach item="agentId" collection="array" open="(" separator="," close=")">
+            #{agentId}
+        </foreach>
+    </delete>
+</mapper>

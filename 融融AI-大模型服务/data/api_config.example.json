@@ -1,0 +1,20 @@
+{
+    "BILI_JCT": "your_bilibili_jct",
+    "BUVID3": "your_bilibili_buvid3",
+    "SESSDATA": "your_bilibili_sessdata",
+    "DASHSCOPE_API_KEY": "sk-your-dashscope-api-key",
+    "OPENWEATHERMAP_API_KEY": "your-openweathermap-key",
+    "accessToken": "your-juhe-access-token",
+    "appkey": "your-aliyun-nls-appkey",
+    "db_host": "127.0.0.1:3306",
+    "db_name": "llm",
+    "db_password": "your-mysql-password",
+    "db_user": "root",
+    "token": "your-aliyun-nls-token",
+    "COS_SECRET_ID": "your-tencent-cloud-secret-id",
+    "COS_SECRET_KEY": "your-tencent-cloud-secret-key",
+    "COS_REGION": "ap-nanjing",
+    "COS_BUCKET": "your-bucket-1250000000",
+    "ALIYUN_ACCESS_KEY_ID": "your-aliyun-access-key-id",
+    "ALIYUN_ACCESS_KEY_SECRET": "your-aliyun-access-key-secret"
+}

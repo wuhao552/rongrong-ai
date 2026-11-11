@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neu.llm.mapper.MessageMapper">
+    
+    <resultMap type="Message" id="MessageResult">
+        <result property="messageId"    column="message_id"    />
+        <result property="sessionId"    column="session_id"    />
+        <result property="sender"    column="sender"    />
+        <result property="content"    column="content"    />
+        <result property="sendTime"    column="send_time"    />
+        <result property="context"    column="context"    />
+    </resultMap>
+
+    <sql id="selectMessageVo">
+        select message_id, session_id, sender, content, send_time, context from message
+    </sql>
+
+    <select id="selectMessageList" parameterType="Message" resultMap="MessageResult">
+        <include refid="selectMessageVo"/>
+        <where>  
+            <if test="sessionId != null "> and session_id = #{sessionId}</if>
+            <if test="sender != null  and sender != ''"> and sender = #{sender}</if>
+            <if test="params.beginSendTime != null and params.beginSendTime != '' and params.endSendTime != null and params.endSendTime != ''"> and send_time between #{params.beginSendTime} and #{params.endSendTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectMessageById" parameterType="Long" resultMap="MessageResult">
+        <include refid="selectMessageVo"/>
+        where message_id = #{messageId}
+    </select>
+        
+    <insert id="insertMessage" parameterType="Message" useGeneratedKeys="true" keyProperty="messageId">
+        insert into message
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sessionId != null">session_id,</if>
+            <if test="sender != null">sender,</if>
+            <if test="content != null">content,</if>
+            <if test="sendTime != null">send_time,</if>
+            <if test="context != null">context,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sessionId != null">#{sessionId},</if>
+            <if test="sender != null">#{sender},</if>
+            <if test="content != null">#{content},</if>
+            <if test="sendTime != null">#{sendTime},</if>
+            <if test="context != null">#{context},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMessage" parameterType="Message">
+        update message
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="sessionId != null">session_id = #{sessionId},</if>
+            <if test="sender != null">sender = #{sender},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="sendTime != null">send_time = #{sendTime},</if>
+            <if test="context != null">context = #{context},</if>
+        </trim>
+        where message_id = #{messageId}
+    </update>
+
+    <delete id="deleteMessageById" parameterType="Long">
+        delete from message where message_id = #{messageId}
+    </delete>
+
+    <delete id="deleteMessageByIds" parameterType="String">
+        delete from message where message_id in 
+        <foreach item="messageId" collection="array" open="(" separator="," close=")">
+            #{messageId}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,66 @@
+# ---------- 操作系统 ----------
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---------- 编辑器 / IDE ----------
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.history
+.VSCodeCounter/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# ---------- Node（web 端 / 新闻接口 / 后台前端） ----------
+node_modules/
+.nuxt/
+.output/
+.nitro/
+.cache/
+dist/
+.pnpm-store/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ---------- Java / Maven（后台管理系统） ----------
+target/
+*.class
+hs_err_pid*
+replay_pid*
+
+# ---------- Python（大模型服务） ----------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+
+# ---------- 日志 ----------
+logs/
+*.log
+
+# ---------- 本地敏感配置（勿入库，模板见 *.example.*） ----------
+融融AI-大模型服务/data/api_config.json
+.env
+.env.local
+.env.*.local
+
+# 含个人信息，仅用于本地演示
+融融AI-大模型服务/data/个人简历.pdf
+融融AI-大模型服务/data/zhilian.xlsx
+
+# 例外：热榜服务的 .env 不含任何密钥，需要入库
+!实时新闻后端/.env
+
+# ---------- 打包/临时文件 ----------
+*.zip
+*.tar.gz
+*.bak

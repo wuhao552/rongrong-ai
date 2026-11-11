@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neu.media.mapper.VideoMapper">
+    
+    <resultMap type="Video" id="VideoResult">
+        <result property="id"    column="id"    />
+        <result property="videoUrl"    column="video_url"    />
+        <result property="title"    column="title"    />
+        <result property="description"    column="description"    />
+        <result property="imageUrl"    column="image_url"    />
+        <result property="realUrl"    column="real_url"    />
+    </resultMap>
+
+    <sql id="selectVideoVo">
+        select id, video_url, title, description, image_url, real_url from video
+    </sql>
+
+    <select id="selectVideoList" parameterType="Video" resultMap="VideoResult">
+        <include refid="selectVideoVo"/>
+        <where>  
+            <if test="title != null  and title != ''"> and title like concat('%', #{title}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectVideoById" parameterType="Long" resultMap="VideoResult">
+        <include refid="selectVideoVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertVideo" parameterType="Video" useGeneratedKeys="true" keyProperty="id">
+        insert into video
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="videoUrl != null and videoUrl != ''">video_url,</if>
+            <if test="title != null and title != ''">title,</if>
+            <if test="description != null">description,</if>
+            <if test="imageUrl != null and imageUrl != ''">image_url,</if>
+            <if test="realUrl != null">real_url,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="videoUrl != null and videoUrl != ''">#{videoUrl},</if>
+            <if test="title != null and title != ''">#{title},</if>
+            <if test="description != null">#{description},</if>
+            <if test="imageUrl != null and imageUrl != ''">#{imageUrl},</if>
+            <if test="realUrl != null">#{realUrl},</if>
+         </trim>
+    </insert>
+
+    <update id="updateVideo" parameterType="Video">
+        update video
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="videoUrl != null and videoUrl != ''">video_url = #{videoUrl},</if>
+            <if test="title != null and title != ''">title = #{title},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="imageUrl != null and imageUrl != ''">image_url = #{imageUrl},</if>
+            <if test="realUrl != null">real_url = #{realUrl},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteVideoById" parameterType="Long">
+        delete from video where id = #{id}
+    </delete>
+
+    <delete id="deleteVideoByIds" parameterType="String">
+        delete from video where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

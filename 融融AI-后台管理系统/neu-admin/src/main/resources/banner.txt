@@ -1,0 +1,2 @@
+Application Version: ${ljxl.version}
+Spring Boot Version: ${spring-boot.version}
